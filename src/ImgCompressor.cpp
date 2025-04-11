@@ -103,7 +103,7 @@ void ImgCompressor::divide(QuadtreeNode* node, double currentThreshold) {
     treeDepth = max(treeDepth, node->depth);
 
     double error = computeError(node->pixels, method);
-    bool canSplit = (node->width/2 >= minBlockSize) && (node->height/2 >= minBlockSize);
+    bool canSplit = (node->height * node->width / 4 >= minBlockSize);
 
     if (error <= currentThreshold || !canSplit) {
         return; 
