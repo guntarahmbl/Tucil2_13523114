@@ -74,6 +74,7 @@ g++ -O2 main.cpp ImgCompressor.cpp QuadTreeNode.cpp metrics.cpp imageio.cpp -I"D
 2. **Masukkan input yang dibutuhkan sesuai contoh di bawah. Pastikan file image ada**
 
 ## Contoh Input
+```
 === Kompresi GAMBAR MENGGUNAKAN QUADTREE ===
 Masukkan path absolut gambar: D:/tree.jpg   
 Pilih metode perhitungan error:
@@ -87,6 +88,6 @@ Masukkan ukuran blok minimum: 8
 Masukkan target rasio kompresi (0 untuk menonaktifkan): 0
 Masukkan path absolut gambar hasil kompresi: D:/treeMAD.jpg
 Masukkan path absolut GIF: D:/treeMAD.gif
-
+```
 ## Author
 | Guntara Hambali  13523114  K02 |
