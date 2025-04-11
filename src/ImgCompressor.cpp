@@ -29,6 +29,7 @@ static size_t getFileSize(const string& filename) {
     struct stat stat_buf;
     return stat(filename.c_str(), &stat_buf) == 0 ? stat_buf.st_size : 0;
 }
+
 double ImgCompressor::findBestThreshold() {
     double low = 0.0, high = 100.0;
     double bestThreshold = threshold;
@@ -124,18 +125,19 @@ void ImgCompressor::generateGif(const string& gifPath, int duration) {
     for (int d = 0; d <= treeDepth; ++d) {
         FIBITMAP* frameImage = FreeImage_Allocate(width, height, 24);
         BYTE* frameBits = FreeImage_GetBits(frameImage);
-
         root->renderAtDepth(frameBits, width, height, d);
 
-        vector<uint8_t> rgba(width * height * 4);
+        std::vector<uint8_t> rgba(width * height * 4);
         for (int y = 0; y < height; ++y) {
+            int flippedY = height - 1 - y;  // mirror correction
             for (int x = 0; x < width; ++x) {
-                int i = y * width + x;
+                int i = flippedY * width + x;
                 BYTE* pixel = frameBits + i * 3;
-                rgba[i * 4] = pixel[FI_RGBA_RED];  
-                rgba[i * 4 + 1] = pixel[FI_RGBA_GREEN];
-                rgba[i * 4 + 2] = pixel[FI_RGBA_BLUE]; 
-                rgba[i * 4 + 3] = 255;
+                int j = y * width + x;
+                rgba[j * 4 + 0] = pixel[FI_RGBA_RED];
+                rgba[j * 4 + 1] = pixel[FI_RGBA_GREEN];
+                rgba[j * 4 + 2] = pixel[FI_RGBA_BLUE];
+                rgba[j * 4 + 3] = 255;
             }
         }
 
@@ -143,21 +145,23 @@ void ImgCompressor::generateGif(const string& gifPath, int duration) {
         FreeImage_Unload(frameImage);
     }
 
-    // frame terakhir
+    // Frame akhir (hasil kompresi)
     for (int i = 0; i < 4; ++i) {
         FIBITMAP* finalImage = FreeImage_Allocate(width, height, 24);
         BYTE* finalBits = FreeImage_GetBits(finalImage);
         root->renderNode(finalBits, width, height);
 
-        vector<uint8_t> rgba(width * height * 4);
+        std::vector<uint8_t> rgba(width * height * 4);
         for (int y = 0; y < height; ++y) {
+            int flippedY = height - 1 - y;  // mirror correction
             for (int x = 0; x < width; ++x) {
-                int i = y * width + x;
+                int i = flippedY * width + x;
                 BYTE* pixel = finalBits + i * 3;
-                rgba[i * 4 + 0] = pixel[FI_RGBA_RED];
-                rgba[i * 4 + 1] = pixel[FI_RGBA_GREEN];
-                rgba[i * 4 + 2] = pixel[FI_RGBA_BLUE];
-                rgba[i * 4 + 3] = 255;
+                int j = y * width + x;
+                rgba[j * 4 + 0] = pixel[FI_RGBA_RED];
+                rgba[j * 4 + 1] = pixel[FI_RGBA_GREEN];
+                rgba[j * 4 + 2] = pixel[FI_RGBA_BLUE];
+                rgba[j * 4 + 3] = 255;
             }
         }
 
