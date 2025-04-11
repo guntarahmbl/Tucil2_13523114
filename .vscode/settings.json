@@ -1,0 +1,18 @@
+{
+    "files.associations": {
+        "*.embeddedhtml": "html",
+        "string": "cpp",
+        "iostream": "cpp",
+        "cwchar": "cpp",
+        "xiosbase": "cpp",
+        "xlocale": "cpp",
+        "xlocinfo": "cpp",
+        "xstring": "cpp",
+        "cmath": "cpp",
+        "complex": "cpp",
+        "cstdint": "cpp",
+        "algorithm": "cpp",
+        "utility": "cpp",
+        "istream": "cpp"
+    }
+}
