@@ -1,7 +1,9 @@
 #include <iostream>
 #include <string>
 #include <chrono>
+#include <cstdlib> 
 #include "header/ImgCompressor.hpp"
+
 using namespace std;
 
 int main() {
@@ -18,6 +20,11 @@ int main() {
     cout << "[1] Variance\n[2] Mean Absolute Deviation (MAD)\n[3] Entropy\n[4] Max Pixel Difference\n";
     cout << "Masukkan nomor metode: ";
     cin >> method;
+
+    if (method < 1 || method > 4) {
+        cerr << "[ERROR] Metode tidak valid! Pilih angka antara 1 hingga 4." << endl;
+        exit(EXIT_FAILURE);
+    }
 
     cout << "Masukkan nilai threshold (berdasarkan metode): ";
     cin >> threshold;

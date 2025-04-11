@@ -54,7 +54,7 @@ double ImgCompressor::findBestThreshold() {
 
         bestThreshold = mid;
     }
-
+    cout<<"Best Threshold: "<<bestThreshold<<endl;
     return bestThreshold;
 }
 
@@ -129,7 +129,7 @@ void ImgCompressor::generateGif(const string& gifPath, int duration) {
 
         std::vector<uint8_t> rgba(width * height * 4);
         for (int y = 0; y < height; ++y) {
-            int flippedY = height - 1 - y;  // mirror correction
+            int flippedY = height - 1 - y;  
             for (int x = 0; x < width; ++x) {
                 int i = flippedY * width + x;
                 BYTE* pixel = frameBits + i * 3;
@@ -153,7 +153,7 @@ void ImgCompressor::generateGif(const string& gifPath, int duration) {
 
         std::vector<uint8_t> rgba(width * height * 4);
         for (int y = 0; y < height; ++y) {
-            int flippedY = height - 1 - y;  // mirror correction
+            int flippedY = height - 1 - y;
             for (int x = 0; x < width; ++x) {
                 int i = flippedY * width + x;
                 BYTE* pixel = finalBits + i * 3;
